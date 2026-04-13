@@ -21,8 +21,16 @@ public class AudioSystem
 
 public class LevelLoader
 {
+    public bool HasLoadingRequest => CurrentRequest != null;
+    public LevelConfig CurrentRequest { get; private set; }
+
     public void LoadLevel(LevelConfig nextScene)
     {
-        
+        CurrentRequest = nextScene;
+    }
+
+    public void ConsumeRequest()
+    {
+        CurrentRequest = null;
     }
 }

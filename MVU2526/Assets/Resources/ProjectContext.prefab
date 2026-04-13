@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6605217447325321597}
   - component: {fileID: 964806136556445434}
   - component: {fileID: -3657818874693485560}
+  - component: {fileID: -494738325417720598}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -74,3 +75,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218c26fbae851ff42841d543018d14a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneInitializer
+--- !u!114 &-494738325417720598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838906563540068638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9b32736ef0d7c4d96feb0454bcb7e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelLoadingLogic

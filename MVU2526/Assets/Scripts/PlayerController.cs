@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             audioSystem.EmitSound("Jump sfx");
         }
 
-        if (Keyboard.current.f1Key.wasPressedThisFrame)
+        if (Keyboard.current.pKey.wasPressedThisFrame)
         {
             levelLoader.LoadLevel(nextScene);
         }

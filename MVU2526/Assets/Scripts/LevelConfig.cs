@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "NewLevelConfig", menuName = "LevelConfig")]
 public class LevelConfig : ScriptableObject
 {
     public string logicScenePath;

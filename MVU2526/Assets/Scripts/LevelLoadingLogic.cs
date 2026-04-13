@@ -1,13 +1,20 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 public class LevelLoadingLogic : MonoBehaviour
 {
+    private const string LOADING_SCENE = "Scenes/LoadingScene";
+
     private LevelLoader levelLoader;
+
+    private List<AsyncOperation> loadingOperations 
+        = new List<AsyncOperation>();
 
     [Inject]
     public void SetDependencies(LevelLoader levelLoader)
@@ -19,6 +26,7 @@ public class LevelLoadingLogic : MonoBehaviour
     {
         if (levelLoader.HasLoadingRequest)
         {
+            loadingOperations.Clear();
             StartCoroutine(StartToLoadScene());
             levelLoader.ConsumeRequest();
         }
@@ -27,15 +35,7 @@ public class LevelLoadingLogic : MonoBehaviour
     private IEnumerator StartToLoadScene()
     {
         var currentConfig = levelLoader.CurrentRequest;
-        yield return LoadSceneAsync(currentConfig.logicScenePath, LoadSceneMode.Single);
-        yield return LoadSceneAsync(currentConfig.artScenePath, LoadSceneMode.Additive);
-        yield return LoadSceneAsync(currentConfig.designScenePath, LoadSceneMode.Additive);
-        yield return LoadSceneAsync(currentConfig.audioScenePath, LoadSceneMode.Additive);
-    }
-
-    private static IEnumerator LoadSceneAsync(string scenePath, LoadSceneMode mode)
-    {
-        var asyncOperation = SceneManager.LoadSceneAsync(scenePath, mode);
+        var asyncOperation = SceneManager.LoadSceneAsync(LOADING_SCENE, LoadSceneMode.Single);
 
         asyncOperation.allowSceneActivation = false;
 
@@ -47,6 +47,58 @@ public class LevelLoadingLogic : MonoBehaviour
 
         asyncOperation.allowSceneActivation = true;
 
-        yield return new WaitUntil(() => asyncOperation.isDone);
+        while (asyncOperation.isDone == false)
+        {
+            yield return null;
+        }
+
+
+        yield return LoadSceneAsync(currentConfig.logicScenePath);
+
+        loadingOperations[0].allowSceneActivation = true;
+
+        while (loadingOperations[0].isDone == false)
+        {
+            yield return null;
+        }
+
+        loadingOperations.Clear();
+
+        yield return LoadSceneAsync(currentConfig.artScenePath);
+        yield return LoadSceneAsync(currentConfig.designScenePath);
+        yield return LoadSceneAsync(currentConfig.audioScenePath);
+
+        foreach (var loadingOperation in loadingOperations)
+        {
+            loadingOperation.allowSceneActivation = true;
+        }
+
+        yield return new WaitUntil(() => loadingOperations.All(ao => ao.isDone));
+
+        var unloadingScene = SceneManager.UnloadSceneAsync(LOADING_SCENE);
+
+        yield return new WaitUntil(() => unloadingScene.isDone);
+    }
+
+    private IEnumerator LoadSceneAsync(string scenePath)
+    {
+        var asyncOperation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+
+        loadingOperations.Add(asyncOperation);
+
+        asyncOperation.allowSceneActivation = false;
+
+        //This is another way to implement WaitUntil
+        while (asyncOperation.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        asyncOperation.allowSceneActivation = true;
+
+        while (asyncOperation.isDone == false)
+        {
+            yield return null;
+        }
     }
 }

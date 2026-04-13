@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   logicScenePath: Scenes/FirstScene_LOGIC
-  audioScenePath: 
-  artScenePath: 
-  designScenePath: 
+  audioScenePath: Scenes/FirstScene_AUDIO
+  artScenePath: Scenes/FirstScene_ART
+  designScenePath: Scenes/FirstScene_DESIGN

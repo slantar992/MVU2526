@@ -23,6 +23,7 @@ public class LevelLoader
 {
     public bool HasLoadingRequest => CurrentRequest != null;
     public LevelConfig CurrentRequest { get; private set; }
+    public float CurrentProgress { get; private set; }
 
     public void LoadLevel(LevelConfig nextScene)
     {

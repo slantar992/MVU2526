@@ -34,6 +34,7 @@ public class LevelLoadingLogic : MonoBehaviour
 
     private IEnumerator StartToLoadScene()
     {
+        levelLoader.SetProgress(0);
         var currentConfig = levelLoader.CurrentRequest;
         var asyncOperation = SceneManager.LoadSceneAsync(LOADING_SCENE, LoadSceneMode.Single);
 
@@ -52,21 +53,17 @@ public class LevelLoadingLogic : MonoBehaviour
             yield return null;
         }
 
-
-        yield return LoadSceneAsync(currentConfig.logicScenePath);
-
-        loadingOperations[0].allowSceneActivation = true;
-
-        while (loadingOperations[0].isDone == false)
-        {
-            yield return null;
-        }
-
         loadingOperations.Clear();
 
+
+        yield return LoadSceneAsync(currentConfig.logicScenePath);
+        levelLoader.SetProgress(0.25f);
         yield return LoadSceneAsync(currentConfig.artScenePath);
+        levelLoader.SetProgress(0.5f);
         yield return LoadSceneAsync(currentConfig.designScenePath);
+        levelLoader.SetProgress(0.75f);
         yield return LoadSceneAsync(currentConfig.audioScenePath);
+        levelLoader.SetProgress(1f);
 
         foreach (var loadingOperation in loadingOperations)
         {

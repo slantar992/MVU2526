@@ -34,4 +34,9 @@ public class LevelLoader
     {
         CurrentRequest = null;
     }
+
+    public void SetProgress(float progress)
+    {
+        CurrentProgress = progress;
+    }
 }

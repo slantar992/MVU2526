@@ -4,15 +4,30 @@ using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
-    [Inject]
-    private AudioSystem audioSystem;
+    [SerializeField] private LevelConfig nextScene;
 
+    private AudioSystem audioSystem;
+    private LevelLoader levelLoader;
+
+    [Inject]
+    public void SetDependencies(
+        AudioSystem audioSystem,
+        LevelLoader levelLoader)
+    {
+        this.audioSystem = audioSystem;
+        this.levelLoader = levelLoader;
+    }
 
     public void Update()
     {
         if (Keyboard.current.spaceKey.isPressed)
         {
             audioSystem.EmitSound("Jump sfx");
+        }
+
+        if (Keyboard.current.f1Key.wasPressedThisFrame)
+        {
+            levelLoader.LoadLevel(nextScene);
         }
     }
 }

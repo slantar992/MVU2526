@@ -1,0 +1,15 @@
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\bin\Debug\net10.0\MVU2526-tools.exe
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\bin\Debug\net10.0\MVU2526-tools.deps.json
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\bin\Debug\net10.0\MVU2526-tools.runtimeconfig.json
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\bin\Debug\net10.0\MVU2526-tools.dll
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\bin\Debug\net10.0\MVU2526-tools.pdb
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.AssemblyInfoInputs.cache
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.AssemblyInfo.cs
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.csproj.CoreCompileInputs.cache
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.sourcelink.json
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.dll
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\refint\MVU2526-tools.dll
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.pdb
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\MVU2526-tools.genruntimeconfig.cache
+C:\Users\UMA\Documents\GitHub\MVU2526\tools\MVU2526-tools\MVU2526-tools\obj\Debug\net10.0\ref\MVU2526-tools.dll

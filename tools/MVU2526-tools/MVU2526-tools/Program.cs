@@ -1,26 +1,52 @@
-﻿using Discord.Webhook;
+﻿using CG.Web.MegaApiClient;
+using Discord.Webhook;
+using MVU2526_tools;
 using System.Diagnostics;
-using static System.Net.WebRequestMethods;
+using System.IO.Compression;
+using File = System.IO.File;
 
 var unityPath = Environment.GetEnvironmentVariable("MVU2526_UNITY");
 var projectPath = Environment.GetEnvironmentVariable("MVU2526_PROJECT");
-var buildPath = Path.Combine(projectPath, @"Builds\Game.exe");
+var buildFolder = Path.Combine(projectPath, "Builds");
+var buildPath = Path.Combine(buildFolder, @"Windows/Game.exe");
+var zipFileName = Path.Combine(buildFolder, "Game.zip");
 
-var discordWebhook = @"https://discord.com/api/webhooks/1232757670075830395/gkknkq-Yv-TP2DcDAghPgBcLk3fu183zXgoZ4Sw5pLFs-R2j71arO96YGpzTzd519QyY";
-var discordClient = new DiscordWebhookClient(discordWebhook);
+var discordClient = new DiscordWebhookClient(Secrets.DiscordWebhook);
 
 var arguments = @$"-batchmode -projectPath ""{projectPath}"" -buildWindows64Player ""{buildPath}"" -quit";
 
+MegaApiClient client = new MegaApiClient();
+client.Login(Secrets.Email, Secrets.Password);
+
+Console.WriteLine("Building Game...");
 CommandExecutionResult result = RunCommand(unityPath, arguments);
+
 
 if (result.exitCode != 0)
 {
     await discordClient.SendMessageAsync($"There was an error:\n```\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}\n```");
+    return 1;
 }
-else
+
+Console.WriteLine("Compressing build folder...");
+
+if (File.Exists(zipFileName))
 {
-    await discordClient.SendMessageAsync("Build success!");
+    File.Delete(zipFileName);
 }
+
+ZipFile.CreateFromDirectory(buildFolder+"\\Windows", zipFileName);
+
+Console.WriteLine("Uploading zip file...");
+var downloadUrl = UploadFile(zipFileName);
+
+Console.WriteLine("Upload success, sending discord message...");
+await discordClient.SendMessageAsync($"Build Success!!\nurl: {downloadUrl}");
+
+
+client.Logout();
+
+return 0;
 
 static CommandExecutionResult RunCommand(string unityPath, string arguments)
 {
@@ -42,6 +68,17 @@ static CommandExecutionResult RunCommand(string unityPath, string arguments)
         stdout = buildProcess.StandardOutput.ReadToEnd(),
         stderr = buildProcess.StandardError.ReadToEnd()
     };
+}
+
+string UploadFile(string filePath)
+{
+    IEnumerable<INode> nodes = client.GetNodes();
+    INode root = nodes.Single(x => x.Type == NodeType.Root);
+    INode myFile = client.UploadFile(filePath, root);
+
+    Uri downloadLink = client.GetDownloadLink(myFile);
+
+    return downloadLink.ToString();
 }
 
 public class CommandExecutionResult

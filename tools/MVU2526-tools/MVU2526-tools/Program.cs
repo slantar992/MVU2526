@@ -1,8 +1,11 @@
-﻿
+﻿using System.Diagnostics;
 
-using System.Diagnostics;
+var unityPath = Environment.GetEnvironmentVariable("MVU2526_UNITY");
+var projectPath = Environment.GetEnvironmentVariable("MVU2526_PROJECT");
+var buildPath = Path.Combine(projectPath, @"Builds\Game.exe");
 
-var arguments = @"-projectPath ""C:\Users\UMA\Documents\GitHub\MVU2526\MVU2526"" -buildWindows64Player ""C:\Users\UMA\Documents\GitHub\MVU2526\MVU2526\Builds\Game.exe"" -quit";
+var arguments = @$"-projectPath ""{projectPath}"" -buildWindows64Player ""{buildPath}"" -quit";
 
+var buildProcess = Process.Start(unityPath, arguments);
 
-Process.Start(@"C:\Program Files\Unity\Hub\Editor\6000.3.13f1\Editor\unity.exe", arguments);
+buildProcess.WaitForExit();

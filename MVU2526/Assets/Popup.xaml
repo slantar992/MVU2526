@@ -13,10 +13,11 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-            Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula, est at semper egestas, nisl est dapibus nisi, sit amet malesuada sem risus in elit. Sed rhoncus malesuada leo, at rhoncus ligula semper sit amet. Praesent ipsum nulla, mattis vel faucibus at, mollis vitae velit. Quisque risus ligula, pulvinar in sollicitudin id"
+            Text="{Binding Message}"
                    Foreground="White"
                    FontSize="32" TextWrapping="Wrap" Margin="20"/>
-            <Button Grid.Row="1" Content="Ok" Width="200" Height="80" TextElement.FontSize="42"/>
+            <Button Grid.Row="1" Content="Ok" Width="200" Height="80" TextElement.FontSize="42"
+                    Command="{Binding Dismiss}"/>
         </Grid>
     </Grid>
 </UserControl>

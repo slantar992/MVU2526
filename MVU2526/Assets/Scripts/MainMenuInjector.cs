@@ -1,3 +1,4 @@
+using Noesis;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,9 @@ public class MainMenuInjector : MonoBehaviour
 
 public class MainMenuViewModel : BaseViewModel
 {
+    public PopupViewModel Popup { get; private set; }
+        = new PopupViewModel();
+
     public float Number
     {
         get => number;
@@ -32,12 +36,63 @@ public class MainMenuViewModel : BaseViewModel
     }
 
     public DelegateCommand IncrementNumber { get; private set; }
+    public DelegateCommand Continue { get; private set; }
 
     private float number;
 
     public MainMenuViewModel()
     {
         IncrementNumber = new DelegateCommand(() => Number++);
+        Continue = new DelegateCommand(OnContinue);
+    }
+
+    private void OnContinue()
+    {
+        Popup.Show();
+    }
+}
+
+public class PopupViewModel : BaseViewModel
+{
+    private Visibility visibility;
+    public Visibility Visibility
+    {
+        get { return visibility; }
+        set 
+        { 
+            visibility = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string message;
+
+    public string Message
+    {
+        get { return message; }
+        set 
+        { 
+            message = value; 
+            OnPropertyChanged();
+        }
+    }
+
+    public DelegateCommand Dismiss { get; private set; }
+
+    public PopupViewModel()
+    {
+        Dismiss = new DelegateCommand(OnDismiss);
+    }
+
+    private void OnDismiss()
+    {
+        Visibility = Visibility.Collapsed;
+    }
+
+    public void Show()
+    {
+        Message = "Esto es un mensaje";
+        Visibility = Visibility.Visible;
     }
 }
 
@@ -55,6 +110,7 @@ public abstract class BaseViewModel : INotifyPropertyChanged
 
 public class DelegateCommand : ICommand
 {
+    public event System.EventHandler CanExecuteChanged;
     private Action onExecute;
 
     public DelegateCommand(Action onExecute)
@@ -62,7 +118,6 @@ public class DelegateCommand : ICommand
         this.onExecute = onExecute;
     }
 
-    public event EventHandler CanExecuteChanged;
 
     public bool CanExecute(object parameter)
     {

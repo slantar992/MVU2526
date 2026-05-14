@@ -4,7 +4,8 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   mc:Ignorable="d"
-             d:DesignWidth="1920" d:DesignHeight="1080">
+  d:DesignWidth="1920" d:DesignHeight="1080"
+  xmlns:local="clr-namespace:MVU2526">
 
     <UserControl.Resources>
         <Style x:Key="PanelDefinition" TargetType="Border">
@@ -160,7 +161,11 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <local:Popup Visibility="Collapsed"/>
+
     </Grid>
+
 
 
     <!--<Border Background="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="50,20">

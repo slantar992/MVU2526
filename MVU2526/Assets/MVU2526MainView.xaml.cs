@@ -19,6 +19,7 @@ namespace MVU2526
         }
 
 #if NOESIS
+
         private void InitializeComponent()
         {
             NoesisUnity.LoadComponent(this);

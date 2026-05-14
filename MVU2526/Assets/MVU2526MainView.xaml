@@ -146,8 +146,9 @@
                                 <StackPanel Margin="60 0 0 0">
                                     <Button Style="{DynamicResource MenuButton}" Content="Continue"
                                             Command="{Binding Continue}"/>
-                                    <Button Style="{DynamicResource MenuButton}" Content="Load Game"/>
                                     <Button Style="{DynamicResource MenuButton}" Content="New Game"
+                                            Command="{Binding NewGame}"/>
+                                    <Button Style="{DynamicResource MenuButton}" Content="Load Game"
                                             Command="{Binding IncrementNumber}"/>
                                     <TextBlock Foreground="White" FontSize="42">
                                         <Run Text="Number: "/><Run Text="{Binding Number}"/>

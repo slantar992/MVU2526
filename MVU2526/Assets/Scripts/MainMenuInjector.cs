@@ -9,11 +9,14 @@ public class MainMenuInjector : MonoBehaviour
 {
     MainMenuViewModel viewModel;
 
+    public PopupData continueMessage;
+    public PopupData newGameMessage;
+
     private void Start()
     {
         var noesis = GetComponent<NoesisView>();
 
-        viewModel = new MainMenuViewModel();
+        viewModel = new MainMenuViewModel(continueMessage, newGameMessage);
 
         noesis.Content.DataContext = viewModel;
     }
@@ -37,18 +40,29 @@ public class MainMenuViewModel : BaseViewModel
 
     public DelegateCommand IncrementNumber { get; private set; }
     public DelegateCommand Continue { get; private set; }
+    public DelegateCommand NewGame { get; private set; }
 
     private float number;
+    private readonly PopupData continueMessage;
+    private readonly PopupData newGameMessage;
 
-    public MainMenuViewModel()
+    public MainMenuViewModel(PopupData continueMessage, PopupData newGameMessage)
     {
         IncrementNumber = new DelegateCommand(() => Number++);
         Continue = new DelegateCommand(OnContinue);
+        NewGame = new DelegateCommand(OnNewGame);
+        this.continueMessage = continueMessage;
+        this.newGameMessage = newGameMessage;
+    }
+
+    private void OnNewGame()
+    {
+        Popup.Show(newGameMessage);
     }
 
     private void OnContinue()
     {
-        Popup.Show();
+        Popup.Show(continueMessage);
     }
 }
 
@@ -89,9 +103,9 @@ public class PopupViewModel : BaseViewModel
         Visibility = Visibility.Collapsed;
     }
 
-    public void Show()
+    public void Show(PopupData data)
     {
-        Message = "Esto es un mensaje";
+        Message = data.message;
         Visibility = Visibility.Visible;
     }
 }

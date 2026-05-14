@@ -19,7 +19,7 @@ public class MainMenuInjector : MonoBehaviour
 
 }
 
-public class MainMenuViewModel : INotifyPropertyChanged
+public class MainMenuViewModel : BaseViewModel
 {
     public float Number
     {
@@ -35,12 +35,15 @@ public class MainMenuViewModel : INotifyPropertyChanged
 
     private float number;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
     public MainMenuViewModel()
     {
         IncrementNumber = new DelegateCommand(() => Number++);
     }
+}
+
+public abstract class BaseViewModel : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
 
     // Create the OnPropertyChanged method to raise the event
     // The calling member's name will be used as the parameter.

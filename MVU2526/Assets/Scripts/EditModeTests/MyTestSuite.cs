@@ -10,24 +10,24 @@ using UnityEngine.TestTools;
 
 public class MyTestSuite
 {
-    public static List<SceneGuid> StableScenesGuids = new List<SceneGuid>()
+    public static List<SceneGuid> StableScenesGuids 
+        => StableScenes.sceneGuid;
+        
+        
+    /*    = new List<SceneGuid>()
     {
         new() { guid = "55f31f4963ce2064e8d60933a6f9d190" },
         new() { guid = "99c9720ab356a0642a771bea13969a05" },
         new() { guid = "b38435b0ee198ab479073dc871b6ac04" },
-    };
+    };*/
 
-    public class SceneGuid
+    public static StableScenes StableScenes;
+
+    static MyTestSuite()
     {
-        public string guid;
-
-        public override string ToString()
-        {
-            return AssetDatabase.GUIDToAssetPath(guid);
-        }
-
-        public static implicit operator string(SceneGuid obj) => obj.guid;
+        StableScenes = AssetDatabase.LoadAssetByGUID<StableScenes>(new GUID("8823db61b5f76ad4f84dd3ab1e61e5f6"));
     }
+
 
     [Test]
     public void HealthWith15Points_Give5Damage_ResultIs10()
@@ -42,7 +42,7 @@ public class MyTestSuite
         Assert.That(health.Value, Is.EqualTo(10));
     }
 
-    [Test]
+    [Test, Ignore("no needed components, this is a test to show how to load an asset")]
     public void MyPrefabMyMenuInjectorComponent_ByDefinition_ContinueMessageIsFilled()
     {
         var myPrefab = AssetDatabase.LoadAssetByGUID<GameObject>(new GUID("088fd4670501b604390a445dc8fe7b8c"));

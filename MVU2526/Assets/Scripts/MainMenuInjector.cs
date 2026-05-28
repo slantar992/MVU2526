@@ -9,7 +9,10 @@ public class MainMenuInjector : MonoBehaviour
 {
     MainMenuViewModel viewModel;
 
-    public PopupData continueMessage;
+    [SerializeField]
+    private PopupData continueMessage;
+    public PopupData ContinueMessage => continueMessage;
+
     public PopupData newGameMessage;
 
     private void Start()

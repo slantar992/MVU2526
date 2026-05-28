@@ -10,11 +10,24 @@ using UnityEngine.TestTools;
 
 public class MyTestSuite
 {
-    public static List<string> StableScenesGuids = new List<string>()
+    public static List<SceneGuid> StableScenesGuids = new List<SceneGuid>()
     {
-        "55f31f4963ce2064e8d60933a6f9d190",
+        new() { guid = "55f31f4963ce2064e8d60933a6f9d190" },
+        new() { guid = "99c9720ab356a0642a771bea13969a05" },
+        new() { guid = "b38435b0ee198ab479073dc871b6ac04" },
     };
 
+    public class SceneGuid
+    {
+        public string guid;
+
+        public override string ToString()
+        {
+            return AssetDatabase.GUIDToAssetPath(guid);
+        }
+
+        public static implicit operator string(SceneGuid obj) => obj.guid;
+    }
 
     [Test]
     public void HealthWith15Points_Give5Damage_ResultIs10()
@@ -49,7 +62,7 @@ public class MyTestSuite
     }
 
     [TestCaseSource("StableScenesGuids")]
-    public void UIScene_ByDefinition_ThereIsOnlyOneCamera(string sceneGuid)
+    public void UIScene_ByDefinition_ThereIsOnlyOneCamera(SceneGuid sceneGuid)
     {
         var scenePath = AssetDatabase.GUIDToAssetPath(sceneGuid);
         EditorSceneManager.OpenScene(scenePath);

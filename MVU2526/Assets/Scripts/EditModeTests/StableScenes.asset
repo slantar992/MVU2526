@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ae7daa267309848b892cd53cee413f, type: 3}
   m_Name: StableScenes
   m_EditorClassIdentifier: EditModeTests::StableScenes
-  sceneGuid: []
+  sceneGuid:
+  - guid: 55f31f4963ce2064e8d60933a6f9d190
+  - guid: 99c9720ab356a0642a771bea13969a05
+  - guid: b38435b0ee198ab479073dc871b6ac04
